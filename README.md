@@ -62,6 +62,52 @@ Observability
 
 ---
 
+
+## GCP Setup
+
+### Prerequisites
+- GCP account with billing enabled
+- Project ID: your-project-id
+- APIs enabled: Vertex AI, BigQuery, GCS, Pub/Sub, Dataflow
+
+### Steps
+1. Create GCS bucket and upload PDF:
+```bash
+python GCP/gcs_check.py
+```
+
+2. Create BigQuery table:
+```bash
+python GCP/bq_table.py
+```
+
+3. Embed chunks and upload to BigQuery:
+```bash
+python GCP/storing.py
+```
+
+4. Query with Gemini:
+```bash
+python GCP/query.py
+```
+
+### Environment
+Set your credentials:
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS='GCP/gcp-key.json'
+```
+
+
+├── GCP/
+│   ├── bq_conn_check.py   → BigQuery connection test
+│   ├── bq_table.py        → create BigQuery table + schema
+│   ├── embed.py           → Vertex AI text-embedding-004
+│   ├── gcs_check.py       → upload PDFs to GCS
+│   ├── storing.py         → embed + store in BigQuery
+│   └── query.py           → Vector Search + Gemini RAG
+
+
+
 ## Project Structure
 finsight/
 ├── data/input/          → raw PDFs
